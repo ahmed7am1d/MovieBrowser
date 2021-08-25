@@ -9,10 +9,10 @@ IOS-Android app that is created with Xamarin (C# .NET), allows you to browse for
   * C# developers that worked before with the **MVVM** structure.
  
  #### - Screenshots of the internal app after building:
-<img src="Images/HomeView.png" width="235"></img>
-<img src="Images/SearchView.png" width="235"></img>
-<img src="Images/DetailsView.png" width="235"></img>
-<img src="Images/WatchLaterVIew.png" width="235"></img>
+<img src="Images/HomeView.png" width="200"></img>
+<img src="Images/SearchView.png" width="200"></img>
+<img src="Images/DetailsView.png" width="200"></img>
+<img src="Images/WatchLaterVIew.png" width="200"></img>
 
 * for the purpose of the Copyrights (credits) the following is used:
   * API: http://www.omdbapi.com/
