@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="MovieApp.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Application.Resources>
+
+        <ResourceDictionary>
+
+            <!--  Color for the background  -->
+            <Color x:Key="BackgroundColor">#181920</Color>
+
+            <!--#region Styles for Home Page-->
+
+            <Style x:Key="MovieCaptionStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="LatoFont" />
+                <Setter Property="FontSize" Value="17" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+            </Style>
+
+
+            <Style x:Key="MovieTitleStyleHP" TargetType="Label">
+                <Setter Property="FontFamily" Value="LatoFont" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+
+
+
+            <!--#endregion-->
+
+            <!--#region Styles For Search Page-->
+            <!--  Style for Frame where (movie => type,rating,year) inside it (Search page)  -->
+            <Style x:Key="DescriptionFrameStyle" TargetType="Frame">
+                <Setter Property="Margin" Value="6" />
+                <Setter Property="Padding" Value="8" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="BackgroundColor" Value="#252A34" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="IsClippedToBounds" Value="True" />
+            </Style>
+
+
+            <!--  Style for all labels in Search page  -->
+
+            <Style x:Key="SearchPageLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="LatoFont" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
+            <!--#endregion-->
+
+            <!--#region  Style for grid (to control the effect when selecting an item in collectionView-->
+
+            <Style TargetType="Grid">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#0093D9" />
+                                    <Setter Property="IsClippedToBounds" Value="True" />
+                                    <Setter Property="Opacity" Value="40" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!--#endregion-->
+
+            <!--#region Styles for Detail Page-->
+
+            <!--  Style for Tablabels of Movie Detail section bottom part  -->
+            <Style x:Key="TabPageLabels" TargetType="Label">
+
+                <Setter Property="FontFamily" Value="LatoFont" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="TextColor" Value="LightGray" />
+            </Style>
+
+            <!--  Style for Tablabels of Movie Detail section bottom part (The Current SelectedTab Label Color  -->
+            <Style
+                x:Key="SelectedTabLable"
+                BasedOn="{StaticResource TabPageLabels}"
+                TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
+            <!--#endregion-->
+
+        </ResourceDictionary>
+
+
+
+    </Application.Resources>
+</Application>

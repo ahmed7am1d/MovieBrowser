@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovieApp.Views.FavoirtMoviesView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:MovieApp.Converters"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    BackgroundColor="#181920">
+    <!--  Set title image for the current page  -->
+    <Shell.TitleView>
+        <Image Source="cin.png" />
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <!--  Adding the converters  -->
+        <Converters:ShowTypeImageConverter x:Key="ImageConverter" />
+        <Converters:RatingConverter x:Key="RatingConverter" />
+        <Converters:DuarationShowConverter x:Key="DuarationConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <!--  Main grid to divide the page  -->
+        <Grid Margin="3" Padding="5">
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="270" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions />
+
+            <!--#region  Movie Catgories Label(Stack layout => label , Image )-->
+            <StackLayout Grid.Row="0" Orientation="Horizontal">
+                <Label
+                    FontSize="20"
+                    Style="{StaticResource SearchPageLabelStyle}"
+                    Text="My Fav Movies:" />
+                <lottie:AnimationView
+                    Margin="-5"
+                    Animation="movieanimation.json"
+                    AnimationSource="AssetOrBundle"
+                    AutoPlay="True"
+                    HeightRequest="300"
+                    HorizontalOptions="StartAndExpand"
+                    ImageAssetsFolder="Assets/lottie"
+                    RepeatMode="Infinite"
+                    TranslationY="-4"
+                    VerticalOptions="Center"
+                    WidthRequest="100" />
+            </StackLayout>
+
+            <!--#endregion-->
+
+            <!--#region  Grid For movies Collection view-->
+            <Grid Grid.Row="1">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <CollectionView
+                        Grid.Row="0"
+                        ItemsSource="{Binding Movies}"
+                        SelectedItem="{Binding SelectedMovie}"
+                        SelectionChangedCommand="{Binding GoToShowDetailCommand}"
+                        SelectionMode="Single">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+
+                                <Grid
+                                    Padding="23,10,0,10"
+                                    ColumnSpacing="30"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="2" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="180" />
+                                        <RowDefinition Height="600" />
+                                    </Grid.RowDefinitions>
+
+                                    <Frame
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0"
+                                        CornerRadius="10"
+                                        HasShadow="True"
+                                        HeightRequest="150"
+                                        HorizontalOptions="Start"
+                                        IsClippedToBounds="True"
+                                        VerticalOptions="Center"
+                                        WidthRequest="150">
+
+                                        <Image Aspect="AspectFill" Source="{Binding Poster}" />
+                                    </Frame>
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource SearchPageLabelStyle}"
+                                        Text="{Binding Title}"
+                                        TextColor="LightGray"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </Grid>
+            </Grid>
+
+            <!--#endregion-->
+
+            <!--#region  Tv Shows Catgories Label-->
+
+            <StackLayout Grid.Row="2" Orientation="Horizontal">
+
+
+                <Label
+                    FontSize="20"
+                    Style="{StaticResource SearchPageLabelStyle}"
+                    Text="My Fav TV Shows:" />
+
+                <lottie:AnimationView
+                    Margin="-5"
+                    Animation="tvshowanimation.json"
+                    AnimationSource="AssetOrBundle"
+                    AutoPlay="True"
+                    HeightRequest="300"
+                    HorizontalOptions="Start"
+                    ImageAssetsFolder="Assets/lottie"
+                    RepeatMode="Infinite"
+                    TranslationY="-8"
+                    VerticalOptions="Center"
+                    WidthRequest="100" />
+            </StackLayout>
+
+            <!--#endregion-->
+
+            <!--#region  Grid For Shows carouesel view-->
+            <Grid Grid.Row="3">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="250" />
+                    </Grid.RowDefinitions>
+
+
+                    <CollectionView
+                        Grid.Row="0"
+                        ItemsSource="{Binding TVShows}"
+                        SelectedItem="{Binding SelectedMovie}"
+                        SelectionChangedCommand="{Binding GoToDetailCommand}"
+                        SelectionMode="Single">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+
+                                <Grid
+                                    Padding="23,10,0,10"
+                                    ColumnSpacing="30"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="10" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="180" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+
+                                    <Frame
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="0"
+                                        CornerRadius="10"
+                                        HasShadow="True"
+                                        HeightRequest="150"
+                                        HorizontalOptions="Start"
+                                        IsClippedToBounds="True"
+                                        VerticalOptions="Center"
+                                        WidthRequest="150">
+
+                                        <Image Aspect="AspectFill" Source="{Binding Poster}" />
+                                    </Frame>
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource SearchPageLabelStyle}"
+                                        Text="{Binding Title}"
+                                        TextColor="LightGray"
+                                        VerticalOptions="Start" />
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                </Grid>
+
+            </Grid>
+            <!--#endregion-->
+
+
+
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovieApp.Views.MovieDetailsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:MovieApp.Converters"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:myViews="clr-namespace:MovieApp.Views"
+    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    BackgroundColor="{StaticResource BackgroundColor}">
+
+
+
+    <Grid>
+        <!--  Two Row definitions  -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Adding the poster in background  -->
+        <Image
+            Aspect="AspectFill"
+            HeightRequest="200"
+            Source="{Binding SelectedMovie.Poster}" />
+
+        <!--  Fading the image with white fading  -->
+        <Image
+            Aspect="Fill"
+            HeightRequest="100"
+            Source="Rectangle.png"
+            VerticalOptions="End" />
+
+
+        <!--  Adding the play button on the image then trigger to open youtube maybe  -->
+        <Image HorizontalOptions="Center" Source="playbutton.png" />
+        <!--  ADDING the Card for movie info that will be overlapped using another grid  -->
+        <Grid
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Margin="14,172,14,0"
+            ColumnSpacing="0"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <!--  Rows below for poster +rating + shadow gradiant ....  -->
+                <RowDefinition Height="138" />
+                <RowDefinition Height="46" />
+                <RowDefinition Height="46" />
+                <!--  Take the rest of the page  -->
+                <RowDefinition Height="*" />
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+
+            <BoxView
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#252A34"
+                CornerRadius="6,6,0,0" />
+
+            <!--  Add to faviort button  -->
+            <Button
+                x:Name="FaviourtButton"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#1EBBB7"
+                Command="{Binding AddToFavCommand}"
+                CornerRadius="3"
+                Style="{StaticResource SearchPageLabelStyle}"
+                Text="{Binding FavbuttonStatusLabel}"
+                TextColor="White" />
+
+
+
+            <!--  Adding the gradiant under add to faviourt  -->
+            <skia:SKCanvasView
+                Grid.Row="2"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                PaintSurface="SKCanvasView_PaintSurface" />
+
+            <!--#region  Grid for the space between poster and right side where rating and title and year will be added-->
+            <Grid Grid.Row="0" Grid.Column="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--  Title and year in one Stacklayout  -->
+
+                <StackLayout Margin="14,0,0,0" VerticalOptions="Center">
+                    <Label Style="{StaticResource SearchPageLabelStyle}" Text="{Binding SelectedMovie.Title}" />
+                    <Label
+                        Style="{StaticResource SearchPageLabelStyle}"
+                        Text="{Binding SelectedMovie.Year}"
+                        TextColor="LightGray" />
+                </StackLayout>
+
+                <!--  Normal Horizontal Line  -->
+                <BoxView
+                    Margin="0,0,14,0"
+                    BackgroundColor="LightGray"
+                    HeightRequest=".5"
+                    VerticalOptions="End" />
+
+                <!--  Another grid for rating each rating will take one column and stacklayout seperatly  -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  IMDB Rating  -->
+                    <StackLayout
+                        Grid.Column="0"
+                        Margin="14,0,0,0"
+                        VerticalOptions="Center">
+
+                        <StackLayout Orientation="Horizontal">
+                            <Image
+                                HeightRequest="25"
+                                Source="imdb"
+                                WidthRequest="25" />
+                            <Label
+                                FontSize="14"
+                                Style="{StaticResource SearchPageLabelStyle}"
+                                Text="{Binding SelectedMovie.Ratings[0].Value}" />
+                        </StackLayout>
+
+                        <Label
+                            Margin="0,-5,0,0"
+                            FontSize="14"
+                            Style="{StaticResource SearchPageLabelStyle}"
+                            Text="IMDB"
+                            TextColor="LightGray" />
+
+                    </StackLayout>
+
+                    <!--  Tomatometer rating  -->
+                    <StackLayout
+                        Grid.Column="1"
+                        Margin="14,0,0,0"
+                        VerticalOptions="Center">
+                        <StackLayout Orientation="Horizontal">
+                            <Image
+                                HeightRequest="25"
+                                Source="rotten_tomato"
+                                WidthRequest="25" />
+                            <Label
+                                FontSize="14"
+                                Style="{StaticResource SearchPageLabelStyle}"
+                                Text="{Binding SelectedMovie.Ratings[1].Value}" />
+                        </StackLayout>
+
+                        <Label
+                            Margin="0,-5,0,0"
+                            FontSize="14"
+                            Style="{StaticResource SearchPageLabelStyle}"
+                            Text="Tomatometer"
+                            TextColor="LightGray" />
+
+                    </StackLayout>
+
+                </Grid>
+
+
+            </Grid>
+
+            <!--#endregion-->
+
+            <!--#region  Detail Section with new view-->
+
+            <myViews:MovieDetailSectionView
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Margin="0,0,0,14" />
+
+            <!--#endregion-->
+
+
+        </Grid>
+
+        <!--  because it is hard to add the poster normally we will do it overlapping all elements wiht free position (see it is also  the last code here (Order matter)  -->
+
+        <ImageButton
+            Grid.RowSpan="2"
+            Margin="28,126,0,0"
+            Aspect="AspectFill"
+            CornerRadius="13"
+            HeightRequest="170"
+            HorizontalOptions="Start"
+            Source="{Binding SelectedMovie.Poster}"
+            VerticalOptions="Start"
+            WidthRequest="125" />
+
+        <!--  Animation Faviort guy  -->
+        <lottie:AnimationView
+            Margin="20,20,0,20"
+            Animation="favguy.json"
+            AnimationSource="AssetOrBundle"
+            AutoPlay="True"
+            HeightRequest="96"
+            HorizontalOptions="Start"
+            ImageAssetsFolder="Assets/lottie"
+            RepeatMode="Infinite"
+            TranslationX="300"
+            TranslationY="255"
+            VerticalOptions="Center"
+            WidthRequest="100" />
+
+        <!--  SMS Share  -->
+        <Frame
+            Margin="15"
+            BackgroundColor="#252A34"
+            CornerRadius="50"
+            HeightRequest="40"
+            HorizontalOptions="Start"
+            IsClippedToBounds="False"
+            TranslationY="600"
+            VerticalOptions="Center"
+            WidthRequest="40">
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                Source="chat"
+                VerticalOptions="Center"
+                WidthRequest="40" />
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ShareInfoSMSCommand}" />
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <!--  Email Share  -->
+        <Frame
+            Margin="15"
+            BackgroundColor="#252A34"
+            CornerRadius="50"
+            HeightRequest="40"
+            HorizontalOptions="Start"
+            IsClippedToBounds="False"
+            TranslationX="100"
+            TranslationY="600"
+            VerticalOptions="Center"
+            WidthRequest="40">
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="35"
+                HorizontalOptions="Center"
+                Source="email"
+                VerticalOptions="Center"
+                WidthRequest="35" />
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ShareInfoEmailCommand}" />
+            </Frame.GestureRecognizers>
+        </Frame>
+
+
+    </Grid>
+
+</ContentPage>

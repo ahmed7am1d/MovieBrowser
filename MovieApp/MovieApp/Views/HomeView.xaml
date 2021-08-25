@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovieApp.Views.HomeView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ViewModels="clr-namespace:MovieApp.ViewModels"
+    xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+    x:Name="MainPage"
+    BackgroundColor="{StaticResource BackgroundColor}">
+
+    <!--#region Binding the context of the view model with the view-->
+    <ContentPage.BindingContext>
+        <ViewModels:HomeViewModel />
+    </ContentPage.BindingContext>
+
+    <!--#endregion-->
+
+
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <!--#region CarouselView-->
+        <cv:CarouselViewControl
+            x:Name="cvWalkthrough"
+            AnimateTransition="True"
+            CurrentPageIndicatorTintColor="#252A34"
+            HorizontalOptions="FillAndExpand"
+            IndicatorsShape="Circle"
+            IndicatorsTintColor="LightGray"
+            InterPageSpacing="0"
+            ItemsSource="{Binding WalkThroughItmes}"
+            Orientation="Horizontal"
+            ShowIndicators="true"
+            VerticalOptions="FillAndExpand">
+
+            <cv:CarouselViewControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalOptions="FillAndExpand">
+                        <!--  Image for the background that is bindided to image from walkthourghItems List  -->
+                        <Image
+                            Aspect="Fill"
+                            HorizontalOptions="FillAndExpand"
+                            Source="{Binding Image}"
+                            VerticalOptions="FillAndExpand" />
+
+                        <StackLayout
+                            Margin="20,50"
+                            HorizontalOptions="Start"
+                            Orientation="Vertical"
+                            Spacing="20"
+                            VerticalOptions="End"
+                            WidthRequest="300">
+                            <!--  Frame represend the small button or description of image  -->
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="#252A34"
+                                CornerRadius="15"
+                                HasShadow="True"
+                                HeightRequest="50"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Start"
+                                WidthRequest="150">
+                                <!--  Label inside the frame  -->
+                                <Label
+                                    x:Name="HeadingTxt"
+                                    Style="{StaticResource MovieTitleStyleHP}"
+                                    Text="{Binding Heading}" />
+                            </Frame>
+                            <!--  Long caption  -->
+                            <Label
+                                x:Name="CaptionTxt"
+                                Margin="0,0,0,70"
+                                Style="{StaticResource MovieCaptionStyle}"
+                                Text="{Binding Caption}" />
+
+
+                            <Button
+                                BackgroundColor="White"
+                                Command="{Binding Source={x:Reference MainPage}, Path=BindingContext.MoveToShellCommand}"
+                                CommandParameter="{x:Reference HeadingTxt}"
+                                CornerRadius="20"
+                                ImageSource="BlueSearchICon.png"
+                                Text="Explore More!"
+                                TextColor="#252A34"
+                                WidthRequest="150" />
+
+                            <Label
+                                FontFamily="LatoLightFont"
+                                FontSize="13"
+                                Text="Expolore MORE, about other movies or TV shows where you can search for any movie or TV watch and see the characters and other details of the specific movie or TV show."
+                                TextColor="White" />
+
+
+                        </StackLayout>
+
+                    </Grid>
+                </DataTemplate>
+            </cv:CarouselViewControl.ItemTemplate>
+        </cv:CarouselViewControl>
+
+
+
+
+        <!--#endregion-->
+
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="MovieApp.Views.MovieDetailSectionView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+
+        <!--  (Row 0) Grid for the (Info , Cast ,News ....)  will take the first row with several columns  -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  First label will be bold as selected tab  -->
+            <Label
+                x:Name="InfoTab"
+                Grid.Column="0"
+                Style="{StaticResource SelectedTabLable}"
+                Text="Info">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+
+            <Label
+                x:Name="ActorsTab"
+                Grid.Column="1"
+                Style="{StaticResource TabPageLabels}"
+                Text="Actors">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+
+            <Label
+                x:Name="WritersTab"
+                Grid.Column="2"
+                Style="{StaticResource TabPageLabels}"
+                Text="Writers">
+
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+
+            </Label>
+
+
+            <Label
+                x:Name="AwardsTab"
+                Grid.Column="3"
+                Style="{StaticResource TabPageLabels}"
+                Text="Awards">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+
+            <Label
+                x:Name="MediaTab"
+                Grid.Column="4"
+                Style="{StaticResource TabPageLabels}"
+                Text="Media">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+        </Grid>
+
+        <!--  (Row 1) Box View for Normal Horizontal Line  -->
+        <BoxView
+            Grid.Row="1"
+            HeightRequest="1"
+            VerticalOptions="Center"
+            Color="LightGray" />
+
+
+        <!--  Another box view or line that will be transeted when new tab will be pressed  -->
+        <BoxView
+            x:Name="SelectionUnderline"
+            Grid.Row="1"
+            CornerRadius="2"
+            HeightRequest="5"
+            HorizontalOptions="Start"
+            WidthRequest="40"
+            Color="#1EBBB7" />
+
+        <!--  (Row 2) The Content Area for each(Info , cast , news ..)  -->
+
+
+        <!--  Grid for info of the Movie  -->
+        <Grid
+            x:Name="InfoContent"
+            Grid.Row="2"
+            IsVisible="True"
+            Opacity="1">
+            <Label
+                Margin="10"
+                FontFamily="LatoFont"
+                FontSize="14"
+                Text="{Binding SelectedMovie.Plot}"
+                TextColor="White" />
+        </Grid>
+
+        <!--  Grid for Actors of the movie  -->
+        <Grid
+            x:Name="ActorsContent"
+            Grid.Row="2"
+            IsVisible="True"
+            Opacity="0">
+            <Label Style="{StaticResource SearchPageLabelStyle}" Text="{Binding SelectedMovie.Actors}" />
+        </Grid>
+
+        <!--  Writers  -->
+        <Grid
+            x:Name="WriterContent"
+            Grid.Row="2"
+            IsVisible="False"
+            Opacity="0">
+            <Label Style="{StaticResource SearchPageLabelStyle}" Text="{Binding SelectedMovie.Writer}" />
+        </Grid>
+
+
+        <!--  Awards  -->
+        <Grid
+            x:Name="AwardsContent"
+            Grid.Row="2"
+            IsVisible="False"
+            Opacity="0">
+            <Label Style="{StaticResource SearchPageLabelStyle}" Text="{Binding SelectedMovie.Awards}" />
+        </Grid>
+
+
+        <!--  Media  -->
+        <Grid
+            x:Name="MediaContent"
+            Grid.Row="2"
+            IsVisible="False"
+            Opacity="0">
+            <Label Style="{StaticResource SearchPageLabelStyle}" Text="{Binding SelectedMovie.totalSeasons}" />
+        </Grid>
+
+    </Grid>
+
+
+</ContentView>

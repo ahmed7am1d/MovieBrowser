@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovieApp.Views.SearchMovieView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:MovieApp.Converters"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="{StaticResource BackgroundColor}">
+
+    <!--  Set title image for the current page  -->
+    <Shell.TitleView>
+        <Image Source="cin.png" />
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <!--  Adding the converters  -->
+        <Converters:ShowTypeImageConverter x:Key="ImageConverter" />
+        <Converters:RatingConverter x:Key="RatingConverter" />
+        <Converters:DuarationShowConverter x:Key="DuarationConverter" />
+    </ContentPage.Resources>
+
+
+    <ContentPage.Content>
+
+        <!--  Main Stacklayout that contain all Controllers  -->
+
+        <StackLayout>
+
+            <StackLayout x:Name="SearchBarStack" Margin="15">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="#252A34"
+                    CornerRadius="10"
+                    HasShadow="True"
+                    IsClippedToBounds="True">
+
+                    <SearchBar
+                        x:Name="SEARCHBAR"
+                        CancelButtonColor="#149AA3"
+                        Placeholder="Search..."
+                        PlaceholderColor="LightGray"
+                        SearchCommand="{Binding SearchMovieCommand}"
+                        SearchCommandParameter="{Binding Text, Source={x:Reference SEARCHBAR}}"
+                        Style="{StaticResource SearchPageLabelStyle}" />
+
+                </Frame>
+            </StackLayout>
+
+            <!--  Main Collection View  -->
+
+            <CollectionView
+                x:Name="CollectionViewShows"
+                ItemsSource="{Binding Movies}"
+                SelectedItem="{Binding SelectedMovie}"
+                SelectionChangedCommand="{Binding GoToShowDetailCommand}"
+                SelectionMode="Single">
+
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                        <Grid
+                            Margin="2"
+                            Padding="10"
+                            RowSpacing="5">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="115" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+
+
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Poster  of the movie  -->
+
+
+                            <Frame
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Grid.Column="0"
+                                Padding="0"
+                                CornerRadius="10"
+                                HasShadow="True"
+                                HorizontalOptions="Start"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+
+                                <Image Aspect="AspectFill" Source="{Binding Poster}" />
+                            </Frame>
+
+                            <!--  Title of the show  -->
+                            <Frame
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="StartAndExpand"
+                                Style="{StaticResource DescriptionFrameStyle}">
+                                <Label
+                                    x:Name="TitleLabel"
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource SearchPageLabelStyle}"
+                                    Text="{Binding Title}"
+                                    VerticalOptions="Center" />
+                            </Frame>
+
+                            <!--  Type of show  -->
+
+                            <Frame
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource DescriptionFrameStyle}"
+                                WidthRequest="100">
+
+                                <Label
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource SearchPageLabelStyle}"
+                                    Text="{Binding Type}"
+                                    VerticalOptions="Center" />
+
+                            </Frame>
+                            <!--  image if the type is movie then attach pop corn icon else attach serie icon using Converter  -->
+                            <Image
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="6"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                Source="{Binding Type, Converter={StaticResource ImageConverter}}"
+                                WidthRequest="30" />
+
+                            <!--  Year release  -->
+                            <Frame
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Style="{StaticResource DescriptionFrameStyle}">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource SearchPageLabelStyle}"
+                                    Text="{Binding Year}"
+                                    VerticalOptions="Center" />
+                            </Frame>
+
+                            <!--  Rating  -->
+                            <Frame
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Padding="-10"
+                                Style="{StaticResource DescriptionFrameStyle}"
+                                VerticalOptions="Center">
+
+                                <Image
+                                    HorizontalOptions="Center"
+                                    Source="{Binding Ratings[0].Value, Converter={StaticResource RatingConverter}}"
+                                    VerticalOptions="Center" />
+
+                            </Frame>
+
+                            <!--  Duaration (Episodes if sereis, Duartion if movie  -->
+                            <Frame
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Style="{StaticResource DescriptionFrameStyle}">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource SearchPageLabelStyle}"
+                                    Text="{Binding ShowDuration}"
+                                    VerticalOptions="Center" />
+                            </Frame>
+
+
+
+
+                        </Grid>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

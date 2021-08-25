@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    x:Class="MovieApp.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Views="clr-namespace:MovieApp.Views"
+    Shell.BackgroundColor="#181920"
+    Shell.DisabledColor="#22BDBE"
+    Shell.TabBarTitleColor="#288FFF"
+    Shell.UnselectedColor="DarkGray">
+
+    <TabBar>
+
+        <Tab Title="Show Search" Icon="SearchMovieIC.png">
+            <ShellContent Title="Movie Searches" ContentTemplate="{DataTemplate Views:SearchMovieView}" />
+        </Tab>
+
+
+        <Tab Title="Favorite Shows" Icon="favorite.png">
+            <ShellContent Title="Faviort Movies" ContentTemplate="{DataTemplate Views:FavoirtMoviesView}" />
+        </Tab>
+
+    </TabBar>
+
+</Shell>
