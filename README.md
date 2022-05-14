@@ -15,4 +15,4 @@ IOS-Android app that is created with Xamarin (C# .NET), allows you to browse for
 <img src="Images/WatchLaterVIew.png" width="200"></img>
 
 * for the purpose of the Copyrights (credits) the following is used:
-  * API: http://www.omdbapi.com/
+  * API: https://www.themoviedb.org/
